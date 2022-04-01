@@ -121,6 +121,9 @@ def lambda_handler(event, context):
         str(sum * float(get_now_exchange())) + ' KRW\n' + \
         'Exchange Rate : ' + get_now_exchange()
     
+    if len(payload['blocks'][5]['fields']) <= 0:
+        payload['blocks'][5]['fields'].append({"type": "plain_text", "text": "NO DATA"})
+    
     http = urllib3.PoolManager()
     request = http.request(
         'POST',
